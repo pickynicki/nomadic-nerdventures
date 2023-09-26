@@ -4,7 +4,7 @@ excerpt: "Ornare cum cursus laoreet sagittis nunc fusce posuere per euismod dis 
 publishDate: "2022-12-30T00:00:00.000Z"
 startDate: "2022-12-30T00:00:00.000Z"
 endDate: "2022-12-30T00:00:00.000Z"
-image: "https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=927&h=927"
+image: "https://imagedelivery.net/TRFZasoUUdcqVQ3EGnXeWQ/e0d4074e-4446-4b4c-40d4-1ab4ee369700/public"
 category: "lifestyle"
 author: "mario-sanchez"
 tags: [design, architecture, interior]
