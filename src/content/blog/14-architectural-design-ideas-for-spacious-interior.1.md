@@ -6,7 +6,7 @@ startDate: "2022-12-30T00:00:00.000Z"
 endDate: "2022-12-30T00:00:00.000Z"
 image: "https://imagedelivery.net/TRFZasoUUdcqVQ3EGnXeWQ/e0d4074e-4446-4b4c-40d4-1ab4ee369700/public"
 category: "lifestyle"
-author: "mario-sanchez"
+author: "nesto"
 tags: [design, architecture, interior]
 ---
 

@@ -4,7 +4,7 @@ excerpt: "In 2007, the now-defunct San Antonio Independent Christian Film Festiv
 publishDate: "2022-11-18T11:39:36.050Z"
 image: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?auto=format&fit=crop&w=1000"
 category: "lifestyle"
-author: "joshua-wood"
+author: "the-bears"
 tags: [tag1, tag2, tag3]
 ---
 
