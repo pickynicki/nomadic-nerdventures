@@ -8,6 +8,7 @@ import sitemap from "@astrojs/sitemap";
 import { remarkReadingTime } from "./src/utils/all";
 
 export default defineConfig({
+  server: { port: 3001 },
   site: "https://www.nomadicnerdventures.com",
   markdown: {
     remarkPlugins: [remarkReadingTime],
