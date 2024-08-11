@@ -1,5 +1,5 @@
 ---
-import { Image } from "@astrojs/image/components";
+import { Image } from "astro:assets";
 
 const { author } = Astro.props;
 ---
@@ -10,7 +10,7 @@ const { author } = Astro.props;
     <div class="relative flex-shrink-0 w-24 h-24 mt-1">
       {
         author.image && (
-          <Image
+          <img
             src={author.image}
             alt="Author Photo"
             width={96}

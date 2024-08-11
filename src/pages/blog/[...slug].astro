@@ -1,21 +1,20 @@
 ---
-import { Image, Picture } from "@astrojs/image/components";
+import { Img, Picture } from "astro-imagetools/components";
 import Authorcard from "@components/authorcard.astro";
 import Container from "@components/container.astro";
 import Label from "@components/ui/label.astro";
-import { authors } from "@data/authors";
-import { categories } from "@data/category";
 import Layout from "@layouts/Layout.astro";
 import { getFormattedDate } from "@utils/all";
-import { CollectionEntry, getCollection } from "astro:content";
+import PortableText from "@components/portabletext.astro";
+import { latestPosts } from "@utils/content";
+import type { LATEST_POSTS_QUERYResult } from "../../../sanity.types";
 
-import type { Author } from "@data/authors";
-import type { Category } from "@data/category";
-
-type Props = CollectionEntry<"blog">;
+type Props = {
+  post: LATEST_POSTS_QUERYResult[0]
+};
 
 export async function getStaticPaths() {
-  const blog = await getCollection("blog");
+  const blog = await latestPosts
 
   return blog.map((post) => ({
     params: { slug: post.slug },
@@ -25,35 +24,31 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 
-const { Content, remarkPluginFrontmatter } = await post.render();
-
-const author = authors.find((item) => item.slug === post.data.author) as Author;
-const category = categories.find(
-  (item) => item.slug === post.data.category
-) as Category;
+const author = post.author;
+const category = post.category;
 ---
 
 <Layout
-  title={post.data.title}
-  desc={post.data.excerpt}
-  ogimage={post.data.image}>
+  title={post.title ?? ""}
+  desc={post.description ?? ""}
+  ogimage={post.image ?? ""}>
   <Container>
     <div class="max-w-screen-md mx-auto">
       <div class="text-center">
-        <Label theme={category.color}>{category.title}</Label>
+        <Label theme="green">{category?.title}</Label>
       </div>
 
       <h1
         class="mt-2 mb-3 text-3xl font-semibold tracking-tight text-center lg:leading-snug text-brand-primary lg:text-4xl dark:text-white">
-        {post.data.title}
+        {post.title}
       </h1>
 
       <div class="flex justify-center mt-3 space-x-3 text-gray-500">
         <div class="flex items-center gap-3">
           <div class="relative flex-shrink-0 w-10 h-10">
             {
-              author.image && (
-                <Image
+              author?.image && (
+                <Img
                   src={author.image}
                   alt="Author Photo"
                   width={80}
@@ -67,16 +62,16 @@ const category = categories.find(
 
           <div>
             <p class="text-gray-800 dark:text-gray-400">
-              {author.name}
+              {author?.name}
             </p>
             <div class="flex items-center space-x-2 text-sm">
               <time
                 class="text-gray-500 dark:text-gray-400"
-                datetime={post.data.publishDate}>
-                {getFormattedDate(post.data.publishDate)}
+                datetime={post.publishedAt}>
+                {getFormattedDate(post.publishedAt)}
               </time>
               <span>
-                · {Math.round(remarkPluginFrontmatter?.estReadingTime) || "5"} min
+                TO DO min
                 read
               </span>
             </div>
@@ -89,9 +84,9 @@ const category = categories.find(
   <div
     class="relative z-0 max-w-screen-lg mx-auto overflow-hidden lg:rounded-lg aspect-video">
     {
-      post.data.image && (
+      post.image && (
         <Picture
-          src={post.data.image}
+          src={post.image}
           widths={[200, 400, 800]}
           sizes="(max-width: 640px) 90vw, 480px"
           aspectRatio="16:9"
@@ -109,12 +104,12 @@ const category = categories.find(
     <article class="max-w-screen-md mx-auto">
       <div
         class="mx-auto my-3 prose prose-base dark:prose-invert prose-a:text-blue-600">
-        <Content />
+        <PortableText portableText={post.body} />
 
         <div class="flex flex-wrap items-center w-full gap-3 md:w-auto">
           {
-            post.data.tags.map((tag) => (
-              <span class="text-sm text-gray-500">#{tag}</span>
+            post.tags?.map((tag) => (
+              <span class="text-sm text-gray-500">#{tag.title}</span>
             ))
           }
         </div>
