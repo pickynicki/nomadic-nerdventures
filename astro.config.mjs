@@ -7,8 +7,8 @@ const {
 } = loadEnv(import.meta.env.MODE, process.cwd(), "");
 
 // Different environments use different variables
-const projectId = PUBLIC_SANITY_STUDIO_PROJECT_ID || PUBLIC_SANITY_PROJECT_ID;
-const dataset = PUBLIC_SANITY_STUDIO_DATASET || PUBLIC_SANITY_DATASET;
+const projectId = PUBLIC_SANITY_STUDIO_PROJECT_ID || PUBLIC_SANITY_PROJECT_ID || '4xpuk3sz';
+const dataset = PUBLIC_SANITY_STUDIO_DATASET || PUBLIC_SANITY_DATASET || 'production';
 
 // https://astro.build/config
 import { defineConfig } from "astro/config";
