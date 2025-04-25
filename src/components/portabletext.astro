@@ -1,6 +1,26 @@
 ---
 import { PortableText as PortableTextInternal } from 'astro-portabletext'
+import React from 'react';
+import LightGalleryWrapper from './LightGalleryWrapper.jsx';
 const { portableText } = Astro.props;
 ---
 
-<PortableTextInternal value={portableText} />
+{portableText.map((block, idx) => {
+  if (block._type === 'imageGallery') {
+    const images = (block.images || []).map(img => ({
+      ...img,
+      url: img.asset?.url || img.url,
+      thumbUrl: img.asset?.url || img.url,
+      caption: img.caption || '',
+    }));
+    return (
+      <div style={{ margin: '2em 0' }}>
+        {block.galleryTitle && <h3>{block.galleryTitle}</h3>}
+        {/* Astro React integration: */}
+        <LightGalleryWrapper client:only="react" images={images} />
+      </div>
+    );
+  }
+  // Fallback to default portable text rendering for other blocks
+  return <PortableTextInternal value={[block]} />;
+})}
